@@ -1,0 +1,16 @@
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\bin\Debug\WpfCustomControlLibrary.dll
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\bin\Debug\WpfCustomControlLibrary.pdb
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\WpfCustomControlLibrary_MarkupCompile.cache
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\WpfCustomControlLibrary_MarkupCompile.lref
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\Themes\Generic.baml
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\WpfCustomControlLibrary.g.resources
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\WpfCustomControlLibrary.Properties.Resources.resources
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\WpfCustomControlLibrary.csproj.GenerateResource.cache
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\WpfCustomControlLibrary.csproj.CoreCompileInputs.cache
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\WpfCustomControlLibrary.dll
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\WpfCustomControlLibrary.pdb
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\Themes\Flipper.baml
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\Themes\TipText.baml
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\Themes\FlipPanel.baml
+E:\MyProjects\WpfUpperComputer\WpfCustomControlLibrary\obj\Debug\WpfCustomControlLibrary.csproj.AssemblyReference.cache

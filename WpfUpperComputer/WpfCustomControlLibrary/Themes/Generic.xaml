@@ -1,0 +1,10 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WpfCustomControlLibrary">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/WpfCustomControlLibrary;component/themes/Flipper.xaml" />
+        <ResourceDictionary Source="/WpfCustomControlLibrary;component/themes/FlipPanel.xaml" />
+        <ResourceDictionary Source="/WpfCustomControlLibrary;component/themes/TipText.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

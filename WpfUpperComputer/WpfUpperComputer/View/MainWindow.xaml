@@ -1,0 +1,284 @@
+﻿<Window
+    x:Class="WpfUpperComputer.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:local="clr-namespace:WpfUpperComputer"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sve="clr-namespace:WpfUpperComputer.Service"
+    Title="WPF My Design"
+    Width="1280"
+    Height="720"
+    Icon="/Source/img/wicon.png"
+    Loaded="Window_Loaded"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}" />
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate x:Key="MenuListBoxItem">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button
+                    Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Tag="{Binding Index}">
+                    <Grid Width="100">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon
+                            Grid.Column="0"
+                            Width="16"
+                            Height="16"
+                            Kind="{Binding Kind}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Text="{Binding Name}" />
+                    </Grid>
+                </Button>
+                <!--  事件触发命令  -->
+                <!--<i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>-->
+            </StackPanel>
+        </DataTemplate>
+        <Style x:Key="listBox" TargetType="{x:Type ListBox}">
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border>
+                                        <Button
+                                            Margin="4"
+                                            materialDesign:ShadowAssist.ShadowDepth="Depth4"
+                                            Command="{Binding NavigatePageCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource self}}"
+                                            Tag="{Binding Index}">
+                                            <Grid Width="100">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="20" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <materialDesign:PackIcon
+                                                    Grid.Column="0"
+                                                    Width="16"
+                                                    Height="16"
+                                                    Kind="{Binding Kind}" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    FontSize="14"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Name}" />
+                                            </Grid>
+                                        </Button>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <materialDesign:DialogHost DialogTheme="Inherit" Identifier="RootDialog">
+            <materialDesign:DrawerHost
+                x:Name="DrawerHost"
+                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                BorderThickness="1"
+                IsLeftDrawerOpen="{Binding ElementName=TOpenLeftMenu, Path=IsChecked}">
+                <materialDesign:DrawerHost.LeftDrawerContent>
+                    <StackPanel Margin="4" HorizontalAlignment="Center">
+                        <ListBox
+                            x:Name="LeftMenuListBox"
+                            ItemsSource="{Binding leftMenus}"
+                            PreviewMouseLeftButtonUp="LeftMenuListBox_PreviewMouseLeftButtonUp">
+                            <ListBox.Resources>
+                                <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
+                            </ListBox.Resources>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <materialDesign:Card Margin="4" Padding="6">
+                                        <Grid Width="100">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:PackIcon
+                                                Grid.Column="0"
+                                                Width="16"
+                                                Height="16"
+                                                Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                                Kind="{Binding Kind}" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                FontSize="14"
+                                                FontWeight="Bold"
+                                                Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                                Text="{Binding Name}" />
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </materialDesign:DrawerHost.LeftDrawerContent>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <materialDesign:ColorZone
+                        Grid.Row="0"
+                        Height="60"
+                        Mode="PrimaryMid">
+                        <DockPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <ToggleButton
+                                        x:Name="TOpenLeftMenu"
+                                        Grid.Column="0"
+                                        Margin="4,0,40,0"
+                                        HorizontalAlignment="Left"
+                                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                                    <Button
+                                        Margin="4,0,10,0"
+                                        Padding="1"
+                                        Click="BeforePage_Click"
+                                        IsEnabled="{Binding ElementName=MainFrameContent, Path=CanGoBack}">
+                                        <materialDesign:PackIcon
+                                            Width="30"
+                                            Height="30"
+                                            Kind="ArrowLeftBoldBox" />
+                                    </Button>
+                                    <Button
+                                        Margin="4,0,50,0"
+                                        Padding="1"
+                                        Click="NextPage_Click"
+                                        IsEnabled="{Binding ElementName=MainFrameContent, Path=CanGoForward}">
+                                        <materialDesign:PackIcon
+                                            Width="30"
+                                            Height="30"
+                                            Kind="ArrowRightBoldBox" />
+                                    </Button>
+                                    <Button
+                                        Margin="4,0"
+                                        Padding="1"
+                                        Click="HomePage_Click">
+                                        <materialDesign:PackIcon
+                                            Width="32"
+                                            Height="32"
+                                            Kind="Home" />
+                                    </Button>
+                                </StackPanel>
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Text="WPF测试案例" />
+                                <WrapPanel
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center">
+                                    <ToggleButton
+                                        x:Name="BtnLogin"
+                                        Width="40"
+                                        Height="40"
+                                        DataContext="{Binding Path=Login, Source={StaticResource Locator}}"
+                                        Style="{StaticResource MaterialDesignActionToggleButton}"
+                                        ToolTip="{Binding User.UserName}">
+                                        <ToggleButton.Content>
+                                            <materialDesign:PackIcon
+                                                Width="40"
+                                                Height="40"
+                                                Kind="AccountCircle" />
+                                        </ToggleButton.Content>
+                                    </ToggleButton>
+                                    <materialDesign:PopupBox
+                                        Height="auto"
+                                        DockPanel.Dock="Right"
+                                        PlacementMode="BottomAndAlignRightEdges">
+                                        <ListBox>
+                                            <ListBoxItem>
+                                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                                    <TextBlock>
+                                                        <Run Text="L" />
+                                                        <ToggleButton
+                                                            x:Name="themeMode"
+                                                            HorizontalAlignment="Left"
+                                                            Click="themeMode_Click"
+                                                            Style="{StaticResource MaterialDesignSwitchDarkToggleButton}" />
+                                                        <Run Text="D" />
+                                                    </TextBlock>
+                                                </StackPanel>
+                                            </ListBoxItem>
+                                            <ListBoxItem>
+                                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                                    <ToggleButton
+                                                        x:Name="ToggleUserEdit"
+                                                        Click="ToggleButton_Click"
+                                                        Content="{materialDesign:PackIcon Kind=AccountEdit,
+                                                                                          Size=28}"
+                                                        ToolTip="用户编辑" />
+                                                </StackPanel>
+                                            </ListBoxItem>
+                                        </ListBox>
+                                    </materialDesign:PopupBox>
+                                </WrapPanel>
+                            </Grid>
+                        </DockPanel>
+                    </materialDesign:ColorZone>
+                    <materialDesign:ColorZone
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                        <ContentControl>
+                            <Grid>
+                                <Frame x:Name="MainFrameContent" NavigationUIVisibility="Hidden" />
+                                <materialDesign:Snackbar
+                                    x:Name="Message"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    IsActive="{Binding MainModel.IsActive}">
+                                    <materialDesign:SnackbarMessage
+                                        ActionCommand="{Binding SnackbarCommand}"
+                                        ActionContent="确定"
+                                        Content="{Binding MainModel.MessAge}" />
+                                </materialDesign:Snackbar>
+                            </Grid>
+                        </ContentControl>
+                    </materialDesign:ColorZone>
+                    <materialDesign:ColorZone Grid.Row="2" MinHeight="50">
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock
+                                FontFamily="Cooper Black"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="{Binding MainModel.Date}" />
+                        </StackPanel>
+                    </materialDesign:ColorZone>
+                </Grid>
+            </materialDesign:DrawerHost>
+        </materialDesign:DialogHost>
+
+    </Grid>
+</Window>

@@ -1,0 +1,109 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WpfCustomControlLibrary">
+    <Style TargetType="local:FlipPanel">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:FlipPanel">
+                    <Grid>
+                        <!--  This is the front content.  -->
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="FrontContentTransform" />
+                            </Border.RenderTransform>
+                            <Border.Effect>
+                                <BlurEffect x:Name="FrontContentEffect" Radius="0" />
+                            </Border.Effect>
+
+                            <Grid>
+                                <ContentPresenter Content="{TemplateBinding FrontContent}" />
+                            </Grid>
+
+                        </Border>
+
+                        <!--  This is the back content.  -->
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            RenderTransformOrigin="0,1">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="BackContentTransform" ScaleX="0" />
+                            </Border.RenderTransform>
+                            <Border.Effect>
+                                <BlurEffect x:Name="BackContentEffect" Radius="5" />
+                            </Border.Effect>
+                            <Grid>
+                                <ContentPresenter Content="{TemplateBinding BackContent}" />
+                            </Grid>
+                        </Border>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ViewStates">
+
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FrontContentTransform"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="1"
+                                            Duration="0:0:0.5" />
+
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FrontContentEffect"
+                                            Storyboard.TargetProperty="Radius"
+                                            To="0" />
+
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="BackContentTransform"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.5" />
+
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="BackContentEffect"
+                                            Storyboard.TargetProperty="Radius"
+                                            To="5" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Flipped">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FrontContentTransform"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.5" />
+
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FrontContentEffect"
+                                            Storyboard.TargetProperty="Radius"
+                                            To="5" />
+
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="BackContentTransform"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="1"
+                                            Duration="0:0:0.5" />
+
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="BackContentEffect"
+                                            Storyboard.TargetProperty="Radius"
+                                            To="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

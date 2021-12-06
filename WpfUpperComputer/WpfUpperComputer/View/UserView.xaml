@@ -1,0 +1,174 @@
+﻿<Page
+    x:Class="WpfUpperComputer.View.UserView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfUpperComputer.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <WrapPanel DataContext="{Binding Path=Login, Source={StaticResource Locator}}">
+            <materialDesign:Flipper materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                <materialDesign:Flipper.FrontContent>
+                    <Grid Width="200" Height="256">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="160" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight">
+                            <materialDesign:PackIcon
+                                Width="128"
+                                Height="128"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Kind="AccountCircle" />
+                        </materialDesign:ColorZone>
+                        <StackPanel
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <WrapPanel>
+                                <TextBlock Margin="18,0,0,0" Text="{Binding User.UserName}" />
+                            </WrapPanel>
+                            <Button
+                                Margin="0,4,0,0"
+                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                Content="编辑"
+                                Style="{StaticResource MaterialDesignFlatButton}" />
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Flipper.FrontContent>
+                <materialDesign:Flipper.BackContent>
+                    <Grid Width="200" Height="256">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone Padding="6" Mode="SecondaryMid">
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    HorizontalAlignment="Left"
+                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                    Style="{StaticResource MaterialDesignToolForegroundButton}">
+                                    <materialDesign:PackIcon HorizontalAlignment="Right" Kind="ArrowLeft" />
+                                </Button>
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="用户编辑" />
+                            </StackPanel>
+                        </materialDesign:ColorZone>
+                        <Grid
+                            Grid.Row="1"
+                            Width="172"
+                            Margin="0,6,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBox
+                                Grid.Row="0"
+                                Margin="0,12,0,0"
+                                materialDesign:HintAssist.Hint="用户名"
+                                materialDesign:HintAssist.IsFloating="True"
+                                Text="{Binding User.UserName}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Margin="0,12,0,0"
+                                materialDesign:HintAssist.Hint="密码"
+                                materialDesign:HintAssist.IsFloating="True"
+                                Text="{Binding User.PassWord}" />
+                            <StackPanel
+                                Grid.Row="2"
+                                Margin="0,12,0,0"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="操作等级" />
+                                <ToggleButton Margin="8,0,0,0" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="3">
+                                <Button Content="保存" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Flipper.BackContent>
+            </materialDesign:Flipper>
+            <materialDesign:Card
+                Width="200"
+                Padding="0"
+                Background="#03a9f4"
+                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="16,16,16,4"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="{Binding User.UserName}" />
+                    <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Margin="16,0,16,8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource MaterialDesignBody2TextBlock}"
+                        Text="March 19, 2016" />
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="16,0,16,8"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="30"
+                            Padding="2,0,2,0"
+                            HorizontalAlignment="Right"
+                            materialDesign:RippleAssist.IsCentered="True"
+                            Style="{StaticResource MaterialDesignToolForegroundButton}">
+                            <materialDesign:PackIcon Kind="Phone" />
+                        </Button>
+                        <materialDesign:PopupBox Padding="2,0,2,0" HorizontalAlignment="Right">
+                            <StackPanel>
+                                <Button Content="More" />
+                                <Button Content="Options" />
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Flipper IsFlippedChanged="Flipper_IsFlippedChanged">
+                <materialDesign:Flipper.FrontContent>
+                    <Button
+                        Width="184"
+                        Margin="8"
+                        Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                        Content="FLIPPABLZ!"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                </materialDesign:Flipper.FrontContent>
+                <materialDesign:Flipper.BackContent>
+                    <Button
+                        Width="184"
+                        Margin="8"
+                        Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                        Content="GO BACK"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                </materialDesign:Flipper.BackContent>
+            </materialDesign:Flipper>
+            <materialDesign:Snackbar
+                x:Name="Snackbar1"
+                IsActive="False"
+                Message="跳转事件" />
+            <ToggleButton Content="开关" />
+        </WrapPanel>
+    </Grid>
+</Page>

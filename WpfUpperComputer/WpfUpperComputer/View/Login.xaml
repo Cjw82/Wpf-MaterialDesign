@@ -1,0 +1,325 @@
+﻿<Window x:Class="WpfUpperComputer.View.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfUpperComputer.View"
+        xmlns:hp="clr-namespace:WpfUpperComputer.Common"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="460" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="LGBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="White" Offset="0"/>
+            <GradientStop Color="Red" Offset="0.46"/>
+            <GradientStop Color="LightSkyBlue" Offset="1"/>
+        </LinearGradientBrush>
+        <Style x:Key="MyTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" Opacity="0.65" CornerRadius="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock   Grid.Column="0" Text="&#xebf7;" FontFamily="{DynamicResource MyFontStyle}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                                <Border  BorderBrush="Gray" BorderThickness="0,0,1,0" Margin="0,0,-1,0" />
+                                <TextBlock   Name="markText"  Grid.Column="1" Text="请输入用户名" Visibility="Collapsed" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0"/>
+                                <ScrollViewer Grid.Column="1" x:Name="PART_ContentHost" Focusable="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Path=Text,RelativeSource={RelativeSource Mode=Self}}" Value="">
+                                <Setter Property="Visibility" TargetName="markText" Value="Visible"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="MyPassWordTextBoxStyle" TargetType="{x:Type PasswordBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" Opacity="0.65" CornerRadius="3">
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock  Grid.Column="0" Text="&#xe65c;" FontFamily="{DynamicResource MyFontStyle}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Border   BorderBrush="Gray" BorderThickness="0,0,1,0" Margin="0,0,-1,0"/>
+                                <TextBlock   FontWeight="Bold" Name="passShow"  Grid.Column="1" Text="{Binding Path=(hp:PassWordHelper.PassWord),RelativeSource={RelativeSource TemplatedParent}}" Visibility="Collapsed" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <TextBlock   FontWeight="Bold" Name="passTip"  Grid.Column="1" Text="请输入密码" Visibility="Collapsed" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0" />
+                                <ScrollViewer    Grid.Column="1" x:Name="PART_ContentHost" Focusable="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Button Name="PassVisiable" Style="{StaticResource BtnFontStyle}" Grid.Column="1" Content="&#xe65e;" Cursor="Hand" Margin="2,0" VerticalAlignment="Center" HorizontalAlignment="Right" BorderBrush="White" Background="Transparent" FontFamily="{DynamicResource MyFontStyle}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True" SourceName="PassVisiable">
+                                <Setter Property="FocusVisualStyle" TargetName="PassVisiable" Value="{DynamicResource NuclearButtonFocusVisual}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True" SourceName="PassVisiable">
+                                <Setter Property="Content" TargetName="PassVisiable" Value="&#xe873;"/>
+                                <Setter Property="Visibility" TargetName="PART_ContentHost" Value="Collapsed"/>
+                                <Setter Property="Visibility" TargetName="passShow" Value="Visible"/>
+                                <Setter Property="Visibility" TargetName="passTip" Value="Collapsed"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Path=User.PassWord}" Value="">
+                                <Setter Property="Visibility" TargetName="passTip" Value="Visible"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Path="Login" Source="{StaticResource Locator}"></Binding>
+    </Window.DataContext>
+    <Grid Background="{DynamicResource PrimaryHueDarkBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="460.667"/>
+            <ColumnDefinition Width="39.333"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.Column="0" Grid.ColumnSpan="2" >
+            <DockPanel Height="433" Width="480">
+                <WrapPanel  Visibility="Hidden">
+                    <Border x:Name="cubebg"  Background="{StaticResource LGBrush}" BorderThickness="2">
+                        <WrapPanel  Margin="1" >
+                            <Border  Width="10" Height="10" Background="AliceBlue"/>
+                        </WrapPanel>
+                    </Border>
+                </WrapPanel>
+                <Viewport3D>
+                    <Viewport3D.Camera>
+                        <PerspectiveCamera
+                          Position = "1.75, 2.75, 2.75"
+                          LookDirection = "-1.75, -2.75, -2.75"
+                          UpDirection = "0, 1, 0"
+                          FieldOfView = "60">
+                            <PerspectiveCamera.Transform>
+                                <Transform3DGroup>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0 1 0" x:Name="hr"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="1 0 0" x:Name="vr"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                </Transform3DGroup>
+                            </PerspectiveCamera.Transform>
+                        </PerspectiveCamera>
+                    </Viewport3D.Camera>
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <Model3DGroup >
+                                <!-- Lights -->
+                                <AmbientLight Color="Transparent"/>
+                                <DirectionalLight Color="Gainsboro" Direction="1,-2,-3" />
+                                <DirectionalLight Color="Gainsboro" Direction="-1,2,3" />
+                                <!-- Top -->
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D 
+                                            Positions = "-1,1,1 1,1,1 1,1,-1 -1,1,-1"
+	                                        TriangleIndices = "0 1 2     2,3,0"
+                                            TextureCoordinates="0,1 1,1 1,0 0,0"
+                                        />
+                                    </GeometryModel3D.Geometry>
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial>
+                                            <DiffuseMaterial.Brush>
+                                                <VisualBrush Viewport="0,0,.5,.25" TileMode="Tile" Visual="{Binding ElementName=cubebg}"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+                                </GeometryModel3D>
+                                <!-- Front -->
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+                                            Positions = "-1,-1,1 1,-1,1 1,1,1 -1,1,1"
+	                                        TriangleIndices = "0 1 2     2,3,0"
+                                            TextureCoordinates="0,1 1,1 1,0 0,0"
+                                        />
+                                    </GeometryModel3D.Geometry>
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial>
+                                            <DiffuseMaterial.Brush>
+                                                <VisualBrush Viewport="0,0,.5,.25" TileMode="Tile" Visual="{Binding ElementName=cubebg}"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+                                </GeometryModel3D>
+
+                                <!-- Right -->
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+                                            Positions = "1,-1,1 1,-1,-1 1,1,-1 1,1,1"
+	                                        TriangleIndices = "0 1 2     2,3,0"
+                                            TextureCoordinates="0,1 1,1 1,0 0,0"
+                                        />
+                                    </GeometryModel3D.Geometry>
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial>
+                                            <DiffuseMaterial.Brush>
+                                                <VisualBrush Viewport="0,0,.5,.25" TileMode="Tile" Visual="{Binding ElementName=cubebg}"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+                                </GeometryModel3D>
+
+                                <!-- Left -->
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+                                            Positions = "-1,-1,-1 -1,-1,1 -1,1,1 -1,1,-1"
+	                                        TriangleIndices = "0 1 2     2,3,0"
+                                            TextureCoordinates="0,1 1,1 1,0 0,0"
+                                        />
+                                    </GeometryModel3D.Geometry>
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial>
+                                            <DiffuseMaterial.Brush>
+                                                <VisualBrush Viewport="0,0,.5,.25" TileMode="Tile" Visual="{Binding ElementName=cubebg}"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+                                </GeometryModel3D>
+
+                                <!-- Back -->
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+                                            Positions = "1,-1,-1 -1,-1,-1 -1,1,-1 1,1,-1"
+	                                        TriangleIndices = "0 1 2     2,3,0"
+                                            TextureCoordinates="0,1 1,1 1,0 0,0"
+                                        />
+                                    </GeometryModel3D.Geometry>
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial>
+                                            <DiffuseMaterial.Brush>
+                                                <VisualBrush Viewport="0,0,.5,.25" TileMode="Tile" Visual="{Binding ElementName=cubebg}"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+                                </GeometryModel3D>
+
+                                <!-- Bottom -->
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+                                            Positions = "-1,-1,-1 1,-1,-1 1,-1,1 -1,-1,1"
+	                                        TriangleIndices = "0 1 2     2,3,0"
+                                            TextureCoordinates="0,1 1,1 1,0 0,0"
+                                        />
+                                    </GeometryModel3D.Geometry>
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial>
+                                            <DiffuseMaterial.Brush>
+                                                <VisualBrush Viewport="0,0,.5,.25" TileMode="Tile" Visual="{Binding ElementName=cubebg}"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+                                </GeometryModel3D>
+                            </Model3DGroup>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                </Viewport3D>
+            </DockPanel>
+        </Canvas>
+        <Grid Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="130"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="WPF测试案例登录" Foreground="White" FontSize="18" HorizontalAlignment="Center" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <Button x:Name="BtnClose" Style="{DynamicResource MaterialDesignRaisedButton}" HorizontalAlignment="Right" VerticalAlignment="Top" materialDesign:ShadowAssist.ShadowDepth="Depth3" Margin="0,5,-4,0" Grid.Row="0"  Grid.Column="1" Click="BtnClose_Click" Width="53">
+                <Image  Width="18" Height="18"   Source="/Source/img/close.png" Margin="1"/>
+            </Button>
+            <TextBlock Text="用户名" Foreground="White" Width="50" Height="20" FontSize="14" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+            <TextBox Text="{Binding User.UserName}" FontSize="14" FontWeight="Bold"  Style="{StaticResource MyTextBoxStyle}" Width="200" Height="30"  Grid.Row="1" Grid.Column="1" />
+            <TextBlock Text="密码" Foreground="White" Width="50" Height="20" FontSize="14" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
+            <PasswordBox  hp:PassWordHelper.PassWord="{Binding User.PassWord,Mode=TwoWay}" Style="{StaticResource MyPassWordTextBoxStyle}" Width="200" Height="30" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+            <Button Style="{DynamicResource MaterialDesignRaisedButton}" materialDesign:ShadowAssist.ShadowDepth="Depth4" Command="{Binding LoginCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Content="登 录" Width="210" Grid.Row="3" Grid.ColumnSpan="2" />
+            <WrapPanel  Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="loginTip" Foreground="Red" Text="{Binding LoginMess}"/>
+            </WrapPanel>
+        </Grid>
+    </Grid>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Viewport3D.Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <BeginStoryboard.Storyboard>
+                        <Storyboard>
+                            <DoubleAnimation From="0" To="180" Storyboard.TargetName="vr" Storyboard.TargetProperty="Angle"
+                                             AutoReverse="True" Duration="0:0:8" RepeatBehavior="Forever"/>
+                            <DoubleAnimation From="180" To="360" Storyboard.TargetName="hr" Storyboard.TargetProperty="Angle"
+                                             AutoReverse="True" Duration="0:0:8" RepeatBehavior="Forever"/>
+                            <DoubleAnimation From="0" To="1" Storyboard.TargetName="cubebg" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Offset)"
+                                             AutoReverse="True" BeginTime="0:0:0" Duration="0:0:1.5" RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard.Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
+</Window>
